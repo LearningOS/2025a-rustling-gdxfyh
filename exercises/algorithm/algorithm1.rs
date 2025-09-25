@@ -18,7 +18,7 @@ impl<T> Node<T> {
     fn new(t: T) -> Node<T> {
         Node {
             val: t,
-            next: None,
+            next: None,//132654
         }
     }
 }
