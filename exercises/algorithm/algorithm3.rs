@@ -5,7 +5,11 @@
 */
 // I AM NOT DONE
 
-fn sort<T>(array: &mut [T]){
+fn sort<T>(array: &mut [T])
+	//TODO
+where
+    T: Ord,
+{
     let n = array.len();
     if n <= 1 {
         return; // 空数组或只有一个元素的数组已经是排序好的
