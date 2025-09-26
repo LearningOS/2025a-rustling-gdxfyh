@@ -51,12 +51,30 @@ where
     // Insert a value into the BST
     fn insert(&mut self, value: T) {
         //TODO
+        if self.root.is_none() {
+            self.root = Some(Box::new(TreeNode::new(value)));
+            return;
+        }
+        
+        // 否则调用根节点的insert方法进行插入
+        self.root.as_mut().unwrap().insert(value);
     }
 
     // Search for a value in the BST
     fn search(&self, value: T) -> bool {
         //TODO
-        true
+        let mut current = &self.root;
+        
+        // 遍历树直到找到值或到达叶子节点
+        while let Some(node) = current {
+            match node.value.cmp(&value) {
+                Ordering::Equal => return true,  // 找到匹配值
+                Ordering::Greater => current = &node.left,  // 向左子树搜索
+                Ordering::Less => current = &node.right,    // 向右子树搜索
+            }
+        }
+        
+        false
     }
 }
 
