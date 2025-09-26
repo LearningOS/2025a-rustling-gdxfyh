@@ -30,7 +30,31 @@ impl Graph {
         
 		//TODO
 
+        // 记录节点是否已被访问
+        let mut visited = vec![false; self.adj.len()];
+        // 使用队列来管理BFS的节点顺序
+        let mut queue = VecDeque::new();
+        // 存储访问节点的顺序
         let mut visit_order = vec![];
+
+        // 初始化：标记起始节点为已访问，加入队列
+        visited[start] = true;
+        queue.push_back(start);
+
+        // 当队列不为空时，继续BFS
+        while let Some(node) = queue.pop_front() {
+            // 记录当前节点的访问顺序
+            visit_order.push(node);
+
+            // 遍历当前节点的所有邻接节点
+            for &neighbor in &self.adj[node] {
+                // 如果邻接节点未被访问，则标记为已访问并加入队列
+                if !visited[neighbor] {
+                    visited[neighbor] = true;
+                    queue.push_back(neighbor);
+                }
+            }
+        }
         visit_order
     }
 }
