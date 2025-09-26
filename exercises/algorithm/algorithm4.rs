@@ -85,6 +85,32 @@ where
     // Insert a node into the tree
     fn insert(&mut self, value: T) {
         //TODO
+        match self.value.cmp(&value) {
+            // 对于相等的值，我们选择不插入（BST通常不允许重复值）
+            Ordering::Equal => return,
+            
+            // 要插入的值小于当前节点值，应插入左子树
+            Ordering::Greater => {
+                if self.left.is_none() {
+                    // 左子树为空，直接创建新节点
+                    self.left = Some(Box::new(TreeNode::new(value)));
+                } else {
+                    // 左子树不为空，递归插入左子树
+                    self.left.as_mut().unwrap().insert(value);
+                }
+            }
+            
+            // 要插入的值大于当前节点值，应插入右子树
+            Ordering::Less => {
+                if self.right.is_none() {
+                    // 右子树为空，直接创建新节点
+                    self.right = Some(Box::new(TreeNode::new(value)));
+                } else {
+                    // 右子树不为空，递归插入右子树
+                    self.right.as_mut().unwrap().insert(value);
+                }
+            }
+        }
     }
 }
 
